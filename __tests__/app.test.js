@@ -12,3 +12,10 @@ describe('alchemy-app routes', () => {
     pool.end();
   });
 });
+
+it('gets list of phantom troupe members', async () => {
+  const expected = [{ id: 1, name: 'chrollo', number: 0 }];
+  const res = await request(app).post('/api/v1/members').send(expected);
+
+  expected(res.body).toEqual(expected);
+});
