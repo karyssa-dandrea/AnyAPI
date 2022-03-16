@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const Member = require('../lib/models/Member');
 
 describe('alchemy-app routes', () => {
   beforeEach(() => {
@@ -20,6 +21,13 @@ describe('alchemy-app routes', () => {
     const res = await request(app).post('/api/v1/members').send(expected);
 
     expect(res.body).toEqual({ id: expect.any(String), ...expected });
+  });
+
+  it('gets list of phantom troupe members', async () => {
+    const expected = await Member.findAll();
+    const res = await request(app).get('/api/v1/members');
+
+    expect(res.body).toEqual(expected);
   });
 
   // it('gets list of phantom troupe members', async () => {
