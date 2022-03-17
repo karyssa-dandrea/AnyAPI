@@ -55,6 +55,12 @@ describe('alchemy-app routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+  it('deletes member by id', async () => {
+    const expected = await Member.findById(1);
+    const res = await request(app).delete(`/api/v1/members/${expected.id}`);
+
+    expect(res.body).toEqual(expected);
+  });
 
   // it('gets list of phantom troupe members', async () => {
   //   const expected = [
